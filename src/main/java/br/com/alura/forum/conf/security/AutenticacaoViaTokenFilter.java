@@ -7,20 +7,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.coyote.Request;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
+	private TokenService tokenService;
+
+	public AutenticacaoViaTokenFilter(TokenService tokenService) {
+		this.tokenService = tokenService;
+	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
-		String token = repurarToken(request); 
-		System.out.println(token);
-		
+
+		String token = repurarToken(request);
+		boolean valido = tokenService.isTokenValido(token);
+		System.out.println(valido);
+
 		filterChain.doFilter(request, response);
-		
+
 	}
 
 	private String repurarToken(HttpServletRequest request) {
@@ -28,9 +34,8 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 		if (token == null || token.isEmpty() || !token.startsWith("Bearer")) {
 			return null;
 		}
-		
+
 		return token.substring(7, token.length());
 	}
-
 
 }

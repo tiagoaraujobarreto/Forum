@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 class ForumApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 		Assert.assertTrue(true);
 	}
 

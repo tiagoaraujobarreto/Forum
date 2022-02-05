@@ -11,12 +11,11 @@ import br.com.alura.forum.modelo.Curso;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-
-class CursoRepositoryTest {
+public class CursoRepositoryTest {
 
 	@Autowired
 	private CursoRepository repository;
-	
+
 	@Test
 	public void deveriaCarregarUmCursoAoBuscarPeloSeuNome() {
 		String nomeCurso = "HTML 5";
@@ -26,8 +25,8 @@ class CursoRepositoryTest {
 	}
 	
 	@Test
-	public void naoDeveriaCarregarUmCursoAoBuscarPeloSeuNome() {
-		String nomeCurso = "JPA";
+	public void nãoDeveriaCarregarUmCursoCujoNomeNaoEstejaCadastrado() {
+		String nomeCurso = "C#";
 		Curso curso = repository.findByNome(nomeCurso);
 		Assert.assertNotNull(curso);
 		Assert.assertEquals(nomeCurso, curso.getNome());

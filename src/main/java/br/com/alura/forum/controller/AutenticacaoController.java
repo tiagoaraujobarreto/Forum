@@ -36,8 +36,8 @@ public class AutenticacaoController {
 			Authentication authentication = authnManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authentication);
 			System.out.println(token);
-
 			return ResponseEntity.ok(new TokenDto(token, "bearer"));
+			
 		} catch (org.springframework.security.core.AuthenticationException e) {
 			return ResponseEntity.badRequest().build();
 		}
